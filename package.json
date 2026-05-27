@@ -1,0 +1,18 @@
+{
+  "name": "cfi",
+  "version": "1.0.0",
+  "description": "Sistema de administracion y manejo de contratos, informes, formularios y otros dentro de la Cooperativa Comarapa RL",
+  "license": "ISC",
+  "author": "JamesAC",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/app.js",
+    "dev": "node --watch ./src/app.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "mysql2": "^3.22.4"
+  }
+}
