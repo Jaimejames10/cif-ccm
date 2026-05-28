@@ -1,0 +1,160 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mysql"
+  // url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+model Office {
+  id          Int      @id @default(autoincrement())
+  name        String
+  code        String
+  description String   @db.Text
+  users       User[]
+
+  @@map("office")
+}
+
+model UserProfile {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String   @db.Text
+  users       User[]
+
+  @@map("user_profile")
+}
+
+model Role {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String   @db.Text
+  users       User[]
+
+  @@map("role")
+}
+
+model Area {
+  id          Int          @id @default(autoincrement())
+  name        String
+  description String       @db.Text
+  users       User[]
+  contracts   Contract[]
+  informs     Inform[]     @relation("AreaInforms")
+  informAreas InformArea[]
+
+  @@map("area")
+}
+
+model User {
+  id          Int         @id @default(autoincrement())
+  name        String
+  lastName    String
+  email       String      @unique
+  phone       String
+  ci          String
+  userNetbank String      @map("user_netbank")
+  signature   String
+  stamp       String
+  status      String
+  officeId    Int         @map("office_id")
+  office      Office      @relation(fields: [officeId], references: [id])
+  profileId   Int         @map("profile_id")
+  profile     UserProfile @relation(fields: [profileId], references: [id])
+  roleId      Int         @map("role_id")
+  role        Role        @relation(fields: [roleId], references: [id])
+  areaId      Int         @map("area_id")
+  area        Area        @relation(fields: [areaId], references: [id])
+  forms       Form[]
+
+  @@map("user")
+}
+
+model Form {
+  id                 Int                   @id @default(autoincrement())
+  type               String
+  requestDate        DateTime              @default(now()) @map("request_date")
+  userId             Int                   @map("user_id")
+  user               User                  @relation(fields: [userId], references: [id])
+  accessProfile      String                @map("access_profile")
+  comments           String                @db.Text
+  quiteDate          DateTime?             @map("quite_date")
+  quiteType          String?               @map("quite_type")
+  quiteReason        String?               @db.Text @map("quite_reason")
+  reinstaitmentDate  DateTime?             @map("reinstaitment_date")
+  other              String?               @db.Text
+  requestBy          String?               @map("request_by")
+  authorizedBy       String?               @map("authorized_by")
+  executedBy         String?               @map("executed_by")
+  operationalSystems OperationalSystem[]
+  financialOptions   FinantialCoreOption[]
+
+  @@map("form")
+}
+
+model OperationalSystem {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String   @db.Text
+  formId      Int      @map("form_id")
+  form        Form     @relation(fields: [formId], references: [id])
+
+  @@map("operational_system")
+}
+
+model FinantialCoreOption {
+  id          Int      @id @default(autoincrement())
+  name        String
+  option      String
+  formId      Int      @map("form_id")
+  form        Form     @relation(fields: [formId], references: [id])
+
+  @@map("finantial_core_options")
+}
+
+model Contract {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String   @db.Text
+  areaId      Int      @map("area_id")
+  area        Area     @relation(fields: [areaId], references: [id])
+  file        String
+  other       String?  @db.Text
+  status      String
+  requestBy   String?  @map("request_by")
+  approvedBy  String?  @map("approved_by")
+
+  @@map("contract")
+}
+
+model InformArea {
+  informId Int    @map("inform_id")
+  areaId   Int    @map("area_id")
+  inform   Inform @relation(fields: [informId], references: [id], onDelete: Cascade)
+  area     Area   @relation(fields: [areaId], references: [id], onDelete: Cascade)
+
+  @@id([informId, areaId])
+  @@map("inform_area")
+}
+
+model Inform {
+  id            Int          @id @default(autoincrement())
+  title         String
+  description   String       @db.Text
+  areaId        Int          @map("area_id")
+  area          Area         @relation("AreaInforms", fields: [areaId], references: [id])
+  requestedFile String       @map("requested_file")
+  responseFile  String       @map("response_file")
+  other         String?      @db.Text
+  status        String
+  requestBy     String?      @map("request_by")
+  executedBy    String?      @map("executed_by")
+  informAreas   InformArea[]
+
+  @@map("inform")
+}
