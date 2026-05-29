@@ -15,6 +15,7 @@ model Office {
   id          Int      @id @default(autoincrement())
   name        String
   code        String
+  alias       String   @unique @db.VarChar(3)
   description String   @db.Text
   users       User[]
 
