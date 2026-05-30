@@ -9,6 +9,10 @@ class OfficeService {
         return await officeRepository.create(data);
     }
 
+    async createMany(data) {
+        return await officeRepository.createMany(data);
+    }
+
     async update(id, data) {
         return await officeRepository.update(id, data);
     }
