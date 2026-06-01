@@ -16,7 +16,7 @@ model Office {
   name        String
   code        String
   alias       String   @unique @db.VarChar(3)
-  description String   @db.Text
+  description String?   @db.Text
   users       User[]
 
   @@map("office")
@@ -25,7 +25,7 @@ model Office {
 model UserProfile {
   id          Int      @id @default(autoincrement())
   name        String
-  description String   @db.Text
+  description String?   @db.Text
   users       User[]
 
   @@map("user_profile")
@@ -34,7 +34,7 @@ model UserProfile {
 model Role {
   id          Int      @id @default(autoincrement())
   name        String
-  description String   @db.Text
+  description String?   @db.Text
   users       User[]
 
   @@map("role")
@@ -43,7 +43,7 @@ model Role {
 model Area {
   id          Int          @id @default(autoincrement())
   name        String
-  description String       @db.Text
+  description String?       @db.Text
   users       User[]
   contracts   Contract[]
   informs     Inform[]     @relation("AreaInforms")
@@ -101,7 +101,7 @@ model Form {
 model OperationalSystem {
   id          Int      @id @default(autoincrement())
   name        String
-  description String   @db.Text
+  description String?   @db.Text
   formId      Int      @map("form_id")
   form        Form     @relation(fields: [formId], references: [id])
 
@@ -121,7 +121,7 @@ model FinantialCoreOption {
 model Contract {
   id          Int      @id @default(autoincrement())
   title       String
-  description String   @db.Text
+  description String?   @db.Text
   areaId      Int      @map("area_id")
   area        Area     @relation(fields: [areaId], references: [id])
   file        String
@@ -146,7 +146,7 @@ model InformArea {
 model Inform {
   id            Int          @id @default(autoincrement())
   title         String
-  description   String       @db.Text
+  description   String?       @db.Text
   areaId        Int          @map("area_id")
   area          Area         @relation("AreaInforms", fields: [areaId], references: [id])
   requestedFile String       @map("requested_file")

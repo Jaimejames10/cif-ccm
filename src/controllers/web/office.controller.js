@@ -1,9 +1,11 @@
 import officeService from "../../services/office.service.js";
+import { logger } from "../../config/logger.js"
 
 class OfficeController {
     async getAll(req, res) {
         try {
             const offices = await officeService.getAll();
+            logger.info("Log de prueba");
             res.json(offices);
         } catch (error) {
             console.error("Error al obtener las oficinas:", error);
