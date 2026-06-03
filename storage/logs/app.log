@@ -1,0 +1,16 @@
+{"level":"info","message":"Log de prueba","timestamp":"2026-06-02T18:43:12.183Z"}
+{"level":"info","message":"Log de prueba","timestamp":"2026-06-02T18:46:00.019Z"}
+info: Log de prueba {"timestamp":"2026-06-02T18:50:45.785Z"}
+2026-06-02T18:52:10.498Z [info]: Log de prueba
+[2026-06-02T18:54:15.782Z] [INFO]: Log de prueba
+[2026-06-02 15:04:24] [INFO]: Log de prueba
+-[2026-06-02 15:07:25] [INFO]: Log de prueba
+[2026-06-02 15:07:35] [INFO]: Log de prueba
+[2026-06-02 15:07:36] [INFO]: Log de prueba
+[2026-06-02 15:07:45] [INFO]: Log de prueba
+[2026-06-02 15:07:46] [INFO]: Log de prueba
+[2026-06-02 15:07:47] [INFO]: Log de prueba
+[2026-06-02 15:07:47] [INFO]: Log de prueba
+[2026-06-02 15:08:19] [INFO]: Log de prueba
+[2026-06-02 15:09:30] [INFO]: Log de prueba
+[2026-06-02 15:09:38] [INFO]: Log de prueba
